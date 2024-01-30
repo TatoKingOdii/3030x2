@@ -1,0 +1,30 @@
+<div class="cheese-containers">
+  <div class="cheese-list">
+    <mat-card>
+      <mat-card-header>
+        <mat-card-title>
+          {{ title }}
+        </mat-card-title>
+      </mat-card-header>
+      <mat-card-content *ngFor="let cheese of cheeseList">
+        <mat-action-list disableRipple>
+          <div class="flex-box">
+            <button mat-list-item class="cheese-item" (click)="selectCheese(cheese)">
+              <mat-icon class="star" *ngIf="cheese.favorite">star</mat-icon>
+              <p matLine>Brand: {{cheese.brand}}</p>
+              <p matLine>Name: {{cheese.name}}</p>
+              <p matLine>Texture: {{cheese.texture}}</p>
+            </button>
+            <button mat-button color="warn" class="cheese-item"
+                    (click)="deleteCheese(cheese); $event.stopImmediatePropagation()">
+              <mat-icon>delete</mat-icon>
+            </button>
+          </div>
+        </mat-action-list>
+      </mat-card-content>
+    </mat-card>
+  </div>
+  <app-detail [selectedCheese]="currentCheese"
+              [cheeseList]="cheeseList"
+              (onCheeseSave)="handleCheeseUpdate($event)"/>
+</div>

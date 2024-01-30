@@ -1,0 +1,43 @@
+<div class="cheese-details">
+  <mat-card>
+    <mat-card-header>
+            <span *ngIf="localCheese.id !== -1; else prompt">
+              <mat-card-title>
+                Currently Eating: {{localCheese.name}} by {{localCheese.brand}}
+              </mat-card-title>
+            </span>
+      <ng-template #prompt>
+        <mat-card-title>
+          {{title}}
+        </mat-card-title>
+      </ng-template>
+    </mat-card-header>
+    <form #form="ngForm" (ngSubmit)="saveCheese(localCheese)">
+      <mat-card-content>
+        <mat-form-field>
+          <span class="spacer"></span>
+          <input matInput name="brand" required minlength="1" type="text"
+                 [(ngModel)]="localCheese.brand" placeholder="Brand"/>
+          <span class="spacer"></span>
+        </mat-form-field>
+        <mat-form-field>
+          <input matInput name="name" required minlength="1" type="text"
+                 [(ngModel)]="localCheese.name" placeholder="Name"/>
+        </mat-form-field>
+        <mat-form-field>
+          <input matInput name="texture" required minlength="1" type="text"
+                 [(ngModel)]="localCheese.texture" placeholder="Texture"/>
+        </mat-form-field>
+        <mat-checkbox name="favorite" [(ngModel)]="localCheese.favorite">
+          Favorite
+        </mat-checkbox>
+      </mat-card-content>
+      <mat-card-actions>
+        <button type="submit" [disabled]="form.invalid" mat-button color="accent">
+          {{ localCheese.id == -1 ? 'Create' : 'Save' }}
+        </button>
+        <button type="button" mat-button (click)="reset()">Cancel</button>
+      </mat-card-actions>
+    </form>
+  </mat-card>
+</div>
